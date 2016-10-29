@@ -1,5 +1,11 @@
 import { Server } from 'hapi';
 
+const server = new Server({
+  debug: process.env.NODE_ENV !== "dev" ? false : { log: ['error'], request: ['received'] }
+});
+
+server.connection({ host: 'localhost', port: 3000 });
+
 /***** Temporary - Just testing *****/
 import db from './core/db';
 const User = db.Model.extend({
@@ -12,12 +18,6 @@ server.route({
   handler: (req, rep) => User.fetchAll().then(col => rep(col))
 });
 /***** Temporary - Just testing *****/
-
-const server = new Server({
-  debug: process.env.NODE_ENV !== "dev" ? false : { log: ['error'], request: ['received'] }
-});
-
-server.connection({ host: 'localhost', port: 3000 });
 
 server.start((err) => {
   if(err) {
