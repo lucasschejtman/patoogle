@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:init": "knex init",
+    "db:migrate:make": "knex migrate:make $NAME",
+    "db:migrate:latest": "knex migrate:latest",
+    "db:migrate:rollback": "knex migrate:rollback"
   },
   "repository": {
     "type": "git",
@@ -22,7 +26,10 @@
   },
   "homepage": "https://github.com/lucasschejtman/patoogle#readme",
   "dependencies": {
-    "hapi": "^15.2.0"
+    "bookshelf": "^0.10.2",
+    "hapi": "^15.2.0",
+    "knex": "^0.12.6",
+    "pg": "^6.1.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
