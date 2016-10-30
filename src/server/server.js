@@ -1,3 +1,6 @@
+import authRoutes from './modules/auth/auth.controller';
+import validateSession from './modules/auth/session.validation';
+
 import { Server } from 'hapi';
 
 const server = new Server({
@@ -6,18 +9,16 @@ const server = new Server({
 
 server.connection({ host: 'localhost', port: 3000 });
 
-/***** Temporary - Just testing *****/
-import db from './core/db';
-const User = db.Model.extend({
-  tableName: 'users',
-  timestamps: true
+server.register(require('hapi-auth-jwt2'));
+
+server.auth.strategy('jwt', 'jwt', true, {
+  //TODO: proper key and move to config
+  key: '123456',
+  validateFunc: validateSession
 });
-server.route({
-  method: 'GET',
-  path: '/users',
-  handler: (req, rep) => User.fetchAll().then(col => rep(col))
-});
-/***** Temporary - Just testing *****/
+
+//TODO: dynamic routes
+server.route(authRoutes);
 
 server.start((err) => {
   if(err) {
