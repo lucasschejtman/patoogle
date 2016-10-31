@@ -1,14 +1,13 @@
 import Session from './session.model';
 import User from '../user/user.model';
+import { createSalt, createHash, compareHash } from '../../core/crypt';
 
 import aguid from 'aguid';
 import JWT from 'jsonwebtoken';
-//TODO: move to async
-import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 
 export const register = async (request, reply) => {
-  const salt = genSaltSync(12);
-  const hash = hashSync(request.payload.password, salt);
+  const salt = await createSalt(12);
+  const hash = await createHash(request.payload.password, salt);
   try {
     const newUser = await User.forge({ name: request.payload.name, password: hash }).save(null, { method: 'insert' });
     return reply('user created').code(201);
@@ -20,7 +19,8 @@ export const register = async (request, reply) => {
 export const login = async (request, reply) => {
   try {
     const user = await User.forge({ name: request.payload.name }).fetch({ columns: ['id', 'password'] });
-    if(compareSync(request.payload.password, user.get('password'))) {
+    const passwordMatch = await compareHash(request.payload.password, user.get('password'));
+    if(passwordMatch) {
       const sid = aguid();
       const session = await Session.forge({ session_id: sid, user_id: user.id }).save(null, { method: 'insert' });
       const token = JWT.sign({
