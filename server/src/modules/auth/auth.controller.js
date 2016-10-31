@@ -1,6 +1,5 @@
 import Session from './session.model';
 import User from '../user/user.model';
-import sessionSchema from './session.schema';
 import { createSalt, createHash, compareHash } from '../../core/crypt';
 
 import aguid from 'aguid';
@@ -14,19 +13,6 @@ export const register = async (request, reply) => {
     return reply('user created').code(201);
   } catch(err) {
     return reply('user already exists').code(400);
-  }
-};
-
-const registerCfg = {
-  method: 'POST',
-  path: '/auth/register',
-  handler: register,
-  config: {
-    auth: false,
-    tags: ['api', 'auth'],
-    validate: {
-      payload: sessionSchema.register.request
-    }
   }
 };
 
@@ -51,34 +37,3 @@ export const login = async (request, reply) => {
     return reply('incorrect username or password').code(401);
   }
 };
-
-const loginCfg = {
-  method: 'POST',
-  path: '/auth/login',
-  handler: login,
-  config: {
-    auth: false,
-    tags: ['api', 'auth'],
-    description: 'Endpoint to log the user in',
-    response: {
-      status: {
-        200: sessionSchema.login.response
-      }
-    },
-    validate: {
-      payload: sessionSchema.login.request
-    }
-  }
-};
-
-// Just to test token - will be removed soon
-const testCfg = {
-  method: 'GET',
-  path: '/test',
-  config: {
-    tags: ['api']
-  },
-  handler: (req, repl) => repl('authenticated')
-};
-
-export default [registerCfg, loginCfg, testCfg];

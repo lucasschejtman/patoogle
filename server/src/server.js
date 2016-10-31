@@ -1,4 +1,4 @@
-import authRoutes from './modules/auth/auth.controller';
+import authRoutes from './modules/auth/auth.routes';
 import validateSession from './modules/auth/session.validation';
 
 import { Server } from 'hapi';
