@@ -19,10 +19,11 @@ export const register = async (request, reply) => {
 
 const registerCfg = {
   method: 'POST',
-  path: '/register',
+  path: '/auth/register',
   handler: register,
   config: {
     auth: false,
+    tags: ['api', 'auth'],
     validate: {
       payload: sessionSchema.register.request
     }
@@ -53,10 +54,12 @@ export const login = async (request, reply) => {
 
 const loginCfg = {
   method: 'POST',
-  path: '/login',
+  path: '/auth/login',
   handler: login,
   config: {
     auth: false,
+    tags: ['api', 'auth'],
+    description: 'Endpoint to log the user in',
     response: {
       status: {
         200: sessionSchema.login.response
@@ -72,6 +75,9 @@ const loginCfg = {
 const testCfg = {
   method: 'GET',
   path: '/test',
+  config: {
+    tags: ['api']
+  },
   handler: (req, repl) => repl('authenticated')
 };
 

@@ -16,8 +16,8 @@ const loginSchema = {
     token: Joi.string()
   },
   request: {
-    name: Joi.string(),
-    password: Joi.string()
+    name: Joi.string().required(),
+    password: Joi.string().required()
   }
 };
 
