@@ -12,7 +12,7 @@
 ## Installation
 
 * Run `docker-compose -f dev.yml up` for initial setup
-* Use `docker-compose stop` and `docker-compose start` to reuse the services
+* Use `docker-compose -f dev.yml stop` and `docker-compose -f dev.yml start` to reuse the services
 
 ## Usage
 

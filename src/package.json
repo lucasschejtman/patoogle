@@ -1,0 +1,48 @@
+{
+  "name": "patoogle",
+  "version": "1.0.0",
+  "description": "A better patent search experience",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run db:migrate:latest && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:init": "knex init",
+    "db:migrate:make": "knex migrate:make $NAME",
+    "db:migrate:latest": "knex migrate:latest",
+    "db:migrate:rollback": "knex migrate:rollback"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasschejtman/patoogle.git"
+  },
+  "author": [
+    "Lucas Schejtman",
+    "Wade Gausden",
+    "Oliver Hyde"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasschejtman/patoogle/issues"
+  },
+  "homepage": "https://github.com/lucasschejtman/patoogle#readme",
+  "dependencies": {
+    "aguid": "^1.0.4",
+    "bcrypt": "^0.8.7",
+    "bookshelf": "^0.10.2",
+    "hapi": "^15.2.0",
+    "hapi-auth-jwt2": "^7.1.3",
+    "joi": "^9.2.0",
+    "jsonwebtoken": "^7.1.9",
+    "knex": "^0.12.6",
+    "pg": "^6.1.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-plugin-transform-async-functions": "^6.8.0",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0"
+  }
+}
