@@ -37,7 +37,10 @@ const routes = [
     method: 'GET',
     path: '/test',
     config: {
-      tags: ['api']
+      tags: ['api'],
+      plugins: {
+        hapiAuthorization: { roles: ['GUEST'] }
+      }
     },
     handler: (req, repl) => repl('authenticated')
   }

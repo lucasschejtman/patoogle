@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.uuid('id').index().primary().defaultTo(knex.raw('uuid_generate_v4()'));
     table.string('name').unique().notNullable();
     table.string('password').notNullable();
+    table.enu('role', ['GUEST', 'FREE', 'PREMIUM', 'ADMIN']).notNullable();
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   });

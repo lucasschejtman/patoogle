@@ -10,7 +10,7 @@ export const register = async (request, reply) => {
   const salt = await createSalt(12);
   const hash = await createHash(request.payload.password, salt);
   try {
-    const newUser = await User.forge({ name: request.payload.name, password: hash }).save(null, { method: 'insert' });
+    const newUser = await User.forge({ name: request.payload.name, password: hash, role: 'GUEST' }).save(null, { method: 'insert' });
     return reply('user created').code(201);
   } catch(err) {
     return reply(Boom.badRequest());
