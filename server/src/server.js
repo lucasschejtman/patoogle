@@ -1,4 +1,3 @@
-import authRoutes from './modules/auth/auth.routes';
 import validateSession from './modules/auth/session.validation';
 
 import { Server } from 'hapi';
@@ -13,19 +12,27 @@ const server = new Server({
 server.connection({ host: 'localhost', port: process.env.PORT || 3000 });
 
 server.register([
-  require('inert'),
-  require('vision'),
-  {
-    'register': require('hapi-swagger'),
-    'options': {
-      info: {
-        'title': 'Pathoo API Documentation'
-      },
-      'schemes': ['http', 'https'],
-      'tags': [{ name: 'auth' }]
+    require('inert'),
+    require('vision'),
+    require('hapi-auth-jwt2'),
+    {
+      register: require('hapi-swagger'),
+      options: {
+        info: {
+          title: 'Pathoo API Documentation'
+        },
+        schemes: ['http', 'https'],
+        tags: [{ name: 'auth' }]
+      }
+    },
+    {
+      register: require('hapi-router'),
+      options: {
+        cwd: __dirname,
+        routes: './modules/**/*.routes.js'
+      }
     }
-  },
-  require('hapi-auth-jwt2')], (err) => {
+  ], (err) => {
     server.auth.strategy('jwt', 'jwt', true, {
       //TODO: proper key and move to config
       key: '123456',
@@ -41,6 +48,3 @@ server.register([
     });
   }
 );
-
-//TODO: dynamic routes
-server.route(authRoutes);
