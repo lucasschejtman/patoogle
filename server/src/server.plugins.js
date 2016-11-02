@@ -19,7 +19,9 @@ const routerOpts = {
 };
 
 const rolesOpts = {
-  roles: ['GUEST', 'FREE', 'PREMIUM', 'ADMIN']
+  roles: ['ADMIN', 'PREMIUM', 'FREE', 'GUEST'],
+  hierarchy: true,
+  roleHierarchy: ['ADMIN', 'PREMIUM', 'FREE', 'GUEST']
 };
 
 const plugins = [

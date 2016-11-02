@@ -39,7 +39,7 @@ const routes = [
     config: {
       tags: ['api'],
       plugins: {
-        hapiAuthorization: { roles: ['GUEST'] }
+        hapiAuthorization: { roles: ['FREE'] }
       }
     },
     handler: (req, repl) => repl('authenticated')
