@@ -24,7 +24,7 @@ const routes = [
       description: 'Endpoint to log the user in',
       response: {
         status: {
-          200: sessionSchema.login.response
+          200: sessionSchema.login.response.valid
         }
       },
       validate: {

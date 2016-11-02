@@ -1,7 +1,4 @@
-// https://github.com/hapijs/joi
 import Joi from 'joi';
-
-// We can have more specific rules once we know what we need
 
 const registerSchema = {
   request: {
@@ -12,8 +9,10 @@ const registerSchema = {
 
 const loginSchema = {
   response: {
-    name: Joi.string(),
-    token: Joi.string()
+    valid: {
+      name: Joi.string(),
+      token: Joi.string()
+    }
   },
   request: {
     name: Joi.string().required(),
