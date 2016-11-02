@@ -3,7 +3,6 @@ const swaggerOpts = {
     title: 'Pathoo API Documentation'
   },
   schemes: ['http', 'https'],
-  tags: [{ name: 'auth' }],
   securityDefinitions: {
     jwt: {
       type: 'apiKey',

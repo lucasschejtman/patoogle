@@ -1,6 +1,5 @@
-import { get } from './company.controller';
-
-import Joi from 'joi';
+import { get, create } from './company.controller';
+import companySchema from './company.schema';
 
 const routes = [
   {
@@ -12,12 +11,34 @@ const routes = [
         hapiAuthorization: { roles: ['GUEST'] }
       },
       validate: {
-        params: {
-          name: Joi.string()
+        params: companySchema.get.request
+      },
+      response: {
+        status: {
+          200: companySchema.get.response.valid
         }
       }
     },
     handler: get
+  },
+  {
+    method: 'POST',
+    path: '/company',
+    config: {
+      tags: ['api', 'company'],
+      plugins: {
+        hapiAuthorization: { roles: ['ADMIN'] }
+      },
+      validate: {
+        payload: companySchema.create.request
+      },
+      response: {
+        status: {
+          202: companySchema.create.response.valid
+        }
+      }
+    },
+    handler: create
   }
 ];
 
