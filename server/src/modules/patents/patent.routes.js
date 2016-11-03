@@ -1,21 +1,21 @@
-import { get, create, update, destroy } from './company.controller';
-import companySchema from './company.schema';
+import { get, create, update, destroy, match } from './patent.controller';
+import patentSchema from './patent.schema';
 import Roles from '../../enums/roles.enum';
 
 const routes = [
   {
     method: 'GET',
-    path: '/company/{name}',
+    path: '/patent/{id}',
     config: {
       auth: false,
-      tags: ['api', 'company'],
+      tags: ['api', 'patent'],
       description: `Access level: ${Roles.GUEST}`,
       validate: {
-        params: companySchema.get.request
+        params: patentSchema.get.request
       },
       response: {
         status: {
-          200: companySchema.get.response.valid
+          200: patentSchema.get.response.valid
         }
       }
     },
@@ -23,19 +23,19 @@ const routes = [
   },
   {
     method: 'POST',
-    path: '/company',
+    path: '/patent',
     config: {
-      tags: ['api', 'company'],
+      tags: ['api', 'patent'],
       description: `Access level: ${Roles.ADMIN}`,
       plugins: {
         hapiAuthorization: { roles: [Roles.ADMIN] }
       },
       validate: {
-        payload: companySchema.create.request
+        payload: patentSchema.create.request
       },
       response: {
         status: {
-          202: companySchema.create.response.valid
+          202: patentSchema.create.response.valid
         }
       }
     },
@@ -43,39 +43,57 @@ const routes = [
   },
   {
     method: 'PUT',
-    path: '/company',
+    path: '/patent',
     config: {
-      tags: ['api', 'company'],
+      tags: ['api', 'patent'],
       description: `Access level: ${Roles.ADMIN}`,
       plugins: {
         hapiAuthorization: { roles: [Roles.ADMIN] }
       },
       validate: {
-        payload: companySchema.update.request
+        payload: patentSchema.update.request
       },
       response: {
         status: {
-          201: companySchema.update.response.valid
+          204: patentSchema.update.response.valid
         }
       }
     },
     handler: update
   },
   {
-    method: 'DELETE',
-    path: '/company',
+    method: 'PUT',
+    path: '/patent/{id}/match',
     config: {
-      tags: ['api', 'company'],
+      tags: ['api', 'patent'],
+      description: `Access level: ${Roles.ADMIN}`,
+      plugins: {
+        hapiAuthorization: { roles: [Roles.ADMIN] }
+      },
+      validate: patentSchema.match.request,
+      response: {
+        status: {
+          204: patentSchema.match.response.valid
+        }
+      }
+    },
+    handler: match
+  },
+  {
+    method: 'DELETE',
+    path: '/patent',
+    config: {
+      tags: ['api', 'patent'],
       description: `Access level: ${Roles.ADMIN}`,
       plugins: {
         hapiAuthorization: { roles: [Roles.ADMIN] }
       },
       validate: {
-        payload: companySchema.destroy.request
+        payload: patentSchema.destroy.request
       },
       response: {
         status: {
-          200: companySchema.destroy.response.valid
+          200: patentSchema.destroy.response.valid
         }
       }
     },
