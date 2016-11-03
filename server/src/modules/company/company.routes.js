@@ -1,4 +1,4 @@
-import { get, create } from './company.controller';
+import { get, create, update, destroy } from './company.controller';
 import companySchema from './company.schema';
 import Roles from '../../enums/roles.enum';
 
@@ -42,6 +42,46 @@ const routes = [
       }
     },
     handler: create
+  },
+  {
+    method: 'PUT',
+    path: '/company',
+    config: {
+      tags: ['api', 'company'],
+      description: `Access level: ${Roles.ADMIN}`,
+      plugins: {
+        hapiAuthorization: { roles: [Roles.ADMIN] }
+      },
+      validate: {
+        payload: companySchema.update.request
+      },
+      response: {
+        status: {
+          201: companySchema.update.response.valid
+        }
+      }
+    },
+    handler: update
+  },
+  {
+    method: 'DELETE',
+    path: '/company',
+    config: {
+      tags: ['api', 'company'],
+      description: `Access level: ${Roles.ADMIN}`,
+      plugins: {
+        hapiAuthorization: { roles: [Roles.ADMIN] }
+      },
+      validate: {
+        payload: companySchema.destroy.request
+      },
+      response: {
+        status: {
+          200: companySchema.destroy.response.valid
+        }
+      }
+    },
+    handler: destroy
   }
 ];
 

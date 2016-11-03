@@ -2,7 +2,7 @@ import db from '../../core/db';
 
 const Company = db.model('Company', {
   tableName: 'companies',
-  timestamps: true
+  hasTimestamps: true
 });
 
 export default Company;

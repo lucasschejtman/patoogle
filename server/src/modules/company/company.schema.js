@@ -25,7 +25,34 @@ const createSchema = {
   }
 };
 
+const updateSchema = {
+  request: {
+    id: Joi.string().uuid({ version: ['uuidv4'] }),
+    name: Joi.string().min(3).max(15)
+  },
+  response: {
+    valid: {
+      id: Joi.string().uuid({ version: ['uuidv4'] }),
+      name: Joi.string().min(3).max(15),
+      updated_at: Joi.date().iso()
+    }
+  }
+};
+
+const destroySchema = {
+  request: {
+    id: Joi.string().uuid({ version: ['uuidv4'] })
+  },
+  response: {
+    valid: {
+
+    }
+  }
+}
+
 export default {
   get: getSchema,
-  create: createSchema
+  create: createSchema,
+  update: updateSchema,
+  destroy: destroySchema
 };
