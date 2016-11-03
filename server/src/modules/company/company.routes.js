@@ -1,5 +1,6 @@
 import { get, create } from './company.controller';
 import companySchema from './company.schema';
+import Roles from '../../enums/roles.enum';
 
 const routes = [
   {
@@ -8,7 +9,7 @@ const routes = [
     config: {
       tags: ['api', 'company'],
       plugins: {
-        hapiAuthorization: { roles: ['GUEST'] }
+        hapiAuthorization: { roles: [Roles.GUEST] }
       },
       validate: {
         params: companySchema.get.request
@@ -27,7 +28,7 @@ const routes = [
     config: {
       tags: ['api', 'company'],
       plugins: {
-        hapiAuthorization: { roles: ['ADMIN'] }
+        hapiAuthorization: { roles: [Roles.ADMIN] }
       },
       validate: {
         payload: companySchema.create.request

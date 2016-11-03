@@ -10,7 +10,6 @@ const registerSchema = {
 const loginSchema = {
   response: {
     valid: {
-      name: Joi.string(),
       token: Joi.string()
     }
   },

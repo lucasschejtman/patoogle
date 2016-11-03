@@ -1,3 +1,5 @@
+import Roles from './enums/roles.enum';
+
 const swaggerOpts = {
   info: {
     title: 'Pathoo API Documentation'
@@ -18,9 +20,9 @@ const routerOpts = {
 };
 
 const rolesOpts = {
-  roles: ['ADMIN', 'PREMIUM', 'FREE', 'GUEST'],
+  roles: Roles.ALL,
   hierarchy: true,
-  roleHierarchy: ['ADMIN', 'PREMIUM', 'FREE', 'GUEST']
+  roleHierarchy: Roles.ALL
 };
 
 const plugins = [

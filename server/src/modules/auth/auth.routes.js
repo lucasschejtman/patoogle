@@ -1,5 +1,6 @@
 import sessionSchema from './session.schema';
 import { login, register } from './auth.controller';
+import Roles from '../../enums/roles.enum';
 
 const routes = [
   {
@@ -24,7 +25,7 @@ const routes = [
       description: 'Endpoint to log the user in',
       response: {
         status: {
-          200: sessionSchema.login.response.valid
+          202: sessionSchema.login.response.valid
         }
       },
       validate: {
@@ -39,7 +40,7 @@ const routes = [
     config: {
       tags: ['api'],
       plugins: {
-        hapiAuthorization: { roles: ['FREE'] }
+        hapiAuthorization: { roles: [Roles.FREE] }
       }
     },
     handler: (req, repl) => repl('authenticated')
