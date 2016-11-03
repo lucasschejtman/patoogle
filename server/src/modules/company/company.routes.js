@@ -8,6 +8,7 @@ const routes = [
     path: '/company/{name}',
     config: {
       tags: ['api', 'company'],
+      description: `Access level: ${Roles.GUEST}`,
       plugins: {
         hapiAuthorization: { roles: [Roles.GUEST] }
       },
@@ -27,6 +28,7 @@ const routes = [
     path: '/company',
     config: {
       tags: ['api', 'company'],
+      description: `Access level: ${Roles.ADMIN}`,
       plugins: {
         hapiAuthorization: { roles: [Roles.ADMIN] }
       },
