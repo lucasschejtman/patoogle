@@ -22,7 +22,6 @@ export const create = async (request, reply) => {
   }
 };
 
-
 export const update = async (request, reply) => {
   try {
     const updated = await Company.forge().save(request.payload, { method: 'update' });
