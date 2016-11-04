@@ -2,12 +2,14 @@
   "name": "patoogle",
   "version": "1.0.0",
   "description": "A better patent search experience",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "dev": "npm run db:migrate:latest && node index.js",
+    "dev": "nodemon index.js",
+    "build": "babel src --out-dir build",
+    "start": "npm run db:migrate:latest && node build/index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init": "knex init",
-    "db:migrate:make": "knex migrate:make $NAME",
+    "db:migrate:make": "knex migrate:make",
     "db:migrate:latest": "knex migrate:latest",
     "db:migrate:rollback": "knex migrate:rollback"
   },
@@ -17,10 +19,9 @@
   },
   "author": [
     "Lucas Schejtman",
-    "Wade Gausden",
     "Oliver Hyde"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/lucasschejtman/patoogle/issues"
   },
@@ -45,10 +46,10 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-plugin-transform-async-functions": "^6.8.0",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.18.0"
+    "babel-register": "^6.18.0",
+    "nodemon": "^1.11.0"
   }
 }
