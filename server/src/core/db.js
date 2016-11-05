@@ -16,6 +16,8 @@ const knex = new Knex({
 
 const bookshelf = new Bookshelf(knex);
 
+// https://github.com/tgriesser/bookshelf/wiki/Plugin:-Model-Registry
+bookshelf.plugin('registry');
 // https://github.com/tgriesser/bookshelf/wiki/Plugin:-Pagination
 bookshelf.plugin('pagination');
 // https://github.com/tgriesser/bookshelf/wiki/Plugin:-Visibility

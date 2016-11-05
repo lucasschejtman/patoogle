@@ -1,5 +1,6 @@
 import sessionSchema from './session.schema';
 import { login, register } from './auth.controller';
+import Roles from '../../enums/roles.enum';
 
 const routes = [
   {
@@ -9,6 +10,7 @@ const routes = [
     config: {
       auth: false,
       tags: ['api', 'auth'],
+      description: `Access level: ${Roles.GUEST}`,
       validate: {
         payload: sessionSchema.register.request
       }
@@ -21,25 +23,16 @@ const routes = [
     config: {
       auth: false,
       tags: ['api', 'auth'],
-      description: 'Endpoint to log the user in',
+      description: `Access level: ${Roles.GUEST}`,
       response: {
         status: {
-          200: sessionSchema.login.response
+          202: sessionSchema.login.response.valid
         }
       },
       validate: {
         payload: sessionSchema.login.request
       }
     }
-  },
-  // Just to test token - will be removed soon
-  {
-    method: 'GET',
-    path: '/test',
-    config: {
-      tags: ['api']
-    },
-    handler: (req, repl) => repl('authenticated')
   }
 ]
 

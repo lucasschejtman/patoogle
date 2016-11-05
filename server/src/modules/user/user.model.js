@@ -1,8 +1,11 @@
 import db from '../../core/db';
 
-const User = db.Model.extend({
+const User = db.model('User', {
   tableName: 'users',
-  timestamps: true
+  hasTimestamps: true,
+  sessions() {
+    return this.hasMany('Session', 'user_id');
+  }
 });
 
 export default User;
