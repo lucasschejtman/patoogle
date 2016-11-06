@@ -26,7 +26,6 @@ export const login = async (request, reply) => {
     if(passwordMatch) {
       const sid = aguid();
       const exp = Math.floor(new Date().getTime() / 1000) + (config.get('app.jwt.exp') / 1000);
-      console.log(exp);
       const session = await Session.forge({ session_id: sid, user_id: user.id, end_ts: exp }).save(null, { method: 'insert' });
       const token = JWT.sign({ sid, exp }, config.get('app.jwt.key'));
 
