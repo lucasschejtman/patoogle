@@ -1,17 +1,18 @@
+import config from '../config';
+
 import Knex from 'knex';
 import Bookshelf from 'bookshelf';
 
 const knex = new Knex({
   client: 'pg',
-  //TODO: configuration management
   connection: {
-    host: '0.0.0.0',
-    user: 'postgres',
-    password: 'admin',
-    database: 'patoogle',
+    host: config.get('database.address'),
+    user: config.get('database.user'),
+    password: config.get('database.password'),
+    database: config.get('database.name'),
     charset: 'utf-8'
   },
-  debug: process.env.NODE_ENV === "dev"
+  debug: config.get('app.env') === "dev"
 });
 
 const bookshelf = new Bookshelf(knex);

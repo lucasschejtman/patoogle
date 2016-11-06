@@ -1,8 +1,9 @@
+import config from '../../config';
+
 import { Client } from 'elasticsearch';
 
 const client = new Client({
-  // TODO: Move to config
-  host: 'localhost:9200',
+  host: `${config.get('elasticsearch.address')}:${config.get('elasticsearch.port')}`,
   log: 'trace'
 });
 
