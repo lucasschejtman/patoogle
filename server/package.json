@@ -9,6 +9,8 @@
     "start": "npm run db:migrate:latest && node build/index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init": "knex init",
+    "db:seed:make": "knex seed:make",
+    "db:seed:run": "knex seed:run",
     "db:migrate:make": "knex migrate:make",
     "db:migrate:latest": "knex migrate:latest",
     "db:migrate:rollback": "knex migrate:rollback"
