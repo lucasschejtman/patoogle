@@ -44,6 +44,7 @@
     "joi": "^9.2.0",
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.12.6",
+    "knex-csv-seeder": "^0.4.1",
     "pg": "^6.1.0",
     "vision": "^4.1.0"
   },
