@@ -37,7 +37,8 @@
     ],
     "concurrency": "5",
     "require": [
-      "babel-require"
+      "babel-register",
+      "babel-polyfill"
     ],
     "babel": "inherit"
   },
