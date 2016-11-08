@@ -7,7 +7,7 @@
     "dev": "nodemon index.js",
     "build": "babel src --out-dir build",
     "start": "npm run db:migrate:latest && node build/index",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava",
     "db:init": "knex init",
     "db:seed:make": "knex seed:make",
     "db:seed:run": "knex seed:run",
@@ -28,6 +28,19 @@
     "url": "https://github.com/lucasschejtman/patoogle/issues"
   },
   "homepage": "https://github.com/lucasschejtman/patoogle#readme",
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "source": [
+      "src/**/*.js"
+    ],
+    "concurrency": "5",
+    "require": [
+      "babel-require"
+    ],
+    "babel": "inherit"
+  },
   "dependencies": {
     "aguid": "^1.0.4",
     "bcrypt": "^0.8.7",
@@ -49,6 +62,7 @@
     "vision": "^4.1.0"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel": "^6.5.2",
     "babel-plugin-transform-async-functions": "^6.8.0",
     "babel-polyfill": "^6.16.0",
