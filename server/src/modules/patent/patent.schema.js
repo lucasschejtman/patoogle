@@ -1,16 +1,19 @@
-import Joi from 'joi';
+import { object, string, date } from 'joi';
+
+const DATE = date().iso().required();
+const GUID = string().uuid({ version: ['uuidv4'] }).required();
 
 const getSchema = {
-  request: {
-    id: Joi.string().uuid({ version: ['uuidv4'] }).required()
-  },
+  request: object({
+    id: GUID
+  }),
   response: {
-    valid: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }),
-      matched_company_id: Joi.string().uuid({ version: ['uuidv4'] }).allow(null),
-      created_at: Joi.date().iso(),
-      updated_at: Joi.date().iso()
-    }
+    valid: object({
+      id: GUID,
+      matched_company_id: GUID.allow(null),
+      created_at: DATE,
+      updated_at: DATE
+    })
   }
 };
 
@@ -19,46 +22,46 @@ const createSchema = {
 
   },
   response: {
-    valid: {
-      id: Joi.string()
-    }
+    valid: object({
+      id: GUID
+    })
   }
 };
 
 const matchSchema = {
   request: {
-    params: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }).required()
-    },
-    payload: {
-      name: Joi.string().min(3).max(15).required()
-    }
+    params: object({
+      id: GUID
+    }),
+    payload: object({
+      name: string().min(3).max(15).required()
+    })
   },
   response: {
-    valid: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }),
-      matched_company_id: Joi.string().uuid({ version: ['uuidv4'] }),
-      updated_at: Joi.date().iso()
-    }
+    valid: object({
+      id: GUID,
+      matched_company_id: GUID,
+      updated_at: DATE
+    })
   }
 }
 
 const updateSchema = {
-  request: {
-    id: Joi.string().uuid({ version: ['uuidv4'] })
-  },
+  request: object({
+    id: GUID
+  }),
   response: {
-    valid: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }),
-      updated_at: Joi.date().iso()
-    }
+    valid: object({
+      id: GUID,
+      updated_at: DATE
+    })
   }
 };
 
 const destroySchema = {
-  request: {
-    id: Joi.string().uuid({ version: ['uuidv4'] })
-  },
+  request: object({
+    id: GUID
+  }),
   response: {
     valid: {
 
