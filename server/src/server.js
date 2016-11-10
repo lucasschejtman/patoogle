@@ -8,6 +8,7 @@ const server = new Server({
   debug: config.get('app.env') !== "dev" ? false : { log: ['error'], request: ['received'] }
 });
 
+
 server.connection({ host: config.get('server.address'), port: config.get('server.port') });
 server.register(plugins, (registerErr) => {
     if(registerErr) throw registerErr;
@@ -24,3 +25,5 @@ server.register(plugins, (registerErr) => {
     });
   }
 );
+
+export default server;
