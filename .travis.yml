@@ -14,6 +14,4 @@ addons:
 env:
   - PROJECT_DIR=server CXX=g++-4.8
 
-script: cd $PROJECT_DIR && npm install && npm test
-
-after_success: npm run coverage
+script: cd $PROJECT_DIR && npm install && npm test && npm run coverage
