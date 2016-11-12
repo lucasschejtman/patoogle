@@ -1,21 +1,23 @@
-import Joi from 'joi';
+import { object, string } from 'joi';
+
+const STR = string().required();
 
 const registerSchema = {
-  request: {
-    name: Joi.string(),
-    password: Joi.string()
-  }
+  request: object({
+    name: STR,
+    password: STR
+  })
 };
 
 const loginSchema = {
+  request: object({
+    name: STR,
+    password: STR
+  }),
   response: {
-    valid: {
-      token: Joi.string()
-    }
-  },
-  request: {
-    name: Joi.string().required(),
-    password: Joi.string().required()
+    valid: object({
+      token: STR
+    })
   }
 };
 

@@ -44,10 +44,10 @@
     "babel": "inherit"
   },
   "nyc": {
-    "lines": 40,
-    "statements": 40,
-    "functions": 40,
-    "branches": 40,
+    "lines": 60,
+    "statements": 60,
+    "functions": 50,
+    "branches": 50,
     "include": [
       "src/**/*.js"
     ],
