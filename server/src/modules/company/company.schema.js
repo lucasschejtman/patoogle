@@ -1,48 +1,53 @@
-import Joi from 'joi';
+import { object, string, date } from 'joi';
+
+const STR = string().required();
+const NAME = STR.min(3).max(15);
+const DATE = date().iso().required();
+const GUID = string().uuid({ version: ['uuidv4'] }).required();
 
 const getSchema = {
-  request: {
-    name: Joi.string().required()
-  },
+  request: object({
+    name: STR
+  }),
   response: {
-    valid: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }),
-      name: Joi.string().min(3).max(15),
-      created_at: Joi.date().iso(),
-      updated_at: Joi.date().iso()
-    }
+    valid: object({
+      id: GUID,
+      name: NAME,
+      created_at: DATE,
+      updated_at: DATE
+    })
   }
 };
 
 const createSchema = {
-  request: {
-    name: Joi.string().min(3).max(15).required()
-  },
+  request: object({
+    name: NAME
+  }),
   response: {
-    valid: {
-      id: Joi.string()
-    }
+    valid: object({
+      id: GUID
+    })
   }
 };
 
 const updateSchema = {
-  request: {
-    id: Joi.string().uuid({ version: ['uuidv4'] }),
-    name: Joi.string().min(3).max(15)
-  },
+  request: object({
+    id: GUID,
+    name: NAME
+  }),
   response: {
-    valid: {
-      id: Joi.string().uuid({ version: ['uuidv4'] }),
-      name: Joi.string().min(3).max(15),
-      updated_at: Joi.date().iso()
-    }
+    valid: object({
+      id: GUID,
+      name: NAME,
+      updated_at: DATE
+    })
   }
 };
 
 const destroySchema = {
-  request: {
-    id: Joi.string().uuid({ version: ['uuidv4'] })
-  },
+  request: object({
+    id: GUID
+  }),
   response: {
     valid: {
 
