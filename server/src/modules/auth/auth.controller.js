@@ -34,6 +34,7 @@ export const login = async (request, reply) => {
 
     return reply(Boom.unauthorized('incorrect username or password'));
   } catch(err) {
-    return reply(Boom.badImplementation(err));
+    console.log(err);
+    return reply(Boom.badRequest());
   }
 };
