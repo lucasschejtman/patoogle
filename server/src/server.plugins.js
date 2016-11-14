@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 import Roles from './enums/roles.enum';
 
 const swaggerOpts = {

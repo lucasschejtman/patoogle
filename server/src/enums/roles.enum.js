@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 const ADMIN = 'ADMIN';
 const PREMIUM = 'PREMIUM';
 const FREE = 'FREE';

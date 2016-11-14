@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 import config from '../../config';
 
 import { Client } from 'elasticsearch';

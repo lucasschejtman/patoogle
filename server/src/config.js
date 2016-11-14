@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 import convict from 'convict';
 
 const config = convict({
