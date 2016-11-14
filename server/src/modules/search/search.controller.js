@@ -1,4 +1,4 @@
-import searchService from './search.service';
+import * as searchService from './search.service';
 
 import Boom from 'boom';
 
