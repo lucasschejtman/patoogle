@@ -67,7 +67,7 @@ test.serial('patentByText returns patent id on success', async t => {
   t.deepEqual(result._response, expected);
 });
 
-test.serial('create returns badRequest on error', async t => {
+test.serial('patentByText returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(searchService, 'patentByText').throws();
 

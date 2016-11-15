@@ -11,6 +11,8 @@
 ## Usage
 
 ### Tasks
+  * `npm test` - Runs unit tests and on-screen coverage
+  * `npm run coverage` - Runs coverage task with the appropiate reporters
   * `npm run dev` - Runs the server and automatically restart on every change
   * `npm run build` - Transpile code
   * The following expect an environment variable `NODE_ENV` set to `dev`
