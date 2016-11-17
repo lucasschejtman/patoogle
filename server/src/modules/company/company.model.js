@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 import db from '../../core/db';
 
 const Company = db.model('Company', {

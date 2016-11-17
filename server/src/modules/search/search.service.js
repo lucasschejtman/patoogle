@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 import esClient from './search.client';
 
 export const companyByName = (name) => {
