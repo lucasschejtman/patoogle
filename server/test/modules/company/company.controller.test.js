@@ -86,6 +86,15 @@ test.serial('update returns updated company on success', async t => {
   t.deepEqual(result._response, expected);
 });
 
+test.serial('update returns badRequest on error', async t => {
+  const expected = Boom.badRequest();
+  sandbox.stub(Company.prototype, 'save').throws();
+
+  const result = await target().update({}, reply);
+
+  t.deepEqual(result._response, expected);
+});
+
 test.serial('destroy returns empty object on success', async t => {
   const expected = {};
   sandbox.stub(Company.prototype, 'destroy').returns(true);

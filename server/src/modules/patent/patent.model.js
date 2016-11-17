@@ -1,7 +1,6 @@
-/* istanbul ignore next */
-
 import db from '../../core/db';
 
+/* istanbul ignore next */
 const Patent = db.model('Patent', {
   tableName: 'patents',
   hasTimestamps: true,
