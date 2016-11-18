@@ -16,7 +16,7 @@
   * `npm run dev` - Runs the server and automatically restart on every change
   * `npm run build` - Transpile code
   * The following expect an environment variable `NODE_ENV` set to `dev` or `production`
-    * `npm run db:seed:make` - Create a new seed file
+    * `npm run db:seed:make [seed_name]` - Create a new seed file
     * `npm run db:seed:run` - Run seed files
     * `npm run db:migrate:make [migration_name]` - Create a new migration file
     * `npm run db:migrate:latest` - Update your database to the latest migration
