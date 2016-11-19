@@ -1,3 +1,4 @@
+import * as logger from '../../../src/core/logger';
 import * as searchService from '../../../src/modules/search/search.service';
 
 import test from 'ava';
@@ -23,7 +24,8 @@ const reply = (resp) => ({
 });
 
 const target = () => proxyquire('../../../src/modules/search/search.controller', {
-  './search.service': searchService
+  './search.service': searchService,
+  '../../core/logger': logger
 });
 
 let sandbox;
@@ -50,10 +52,13 @@ test.serial('companyByName returns company on success', async t => {
 test.serial('companyByName returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(searchService, 'companyByName').throws();
+  sandbox.spy(logger, 'error');
+  
   const request = { params: { name: "company" } };
 
   const result = await target().companyByName(request, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -70,8 +75,10 @@ test.serial('patentByText returns patent id on success', async t => {
 test.serial('patentByText returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(searchService, 'patentByText').throws();
+  sandbox.spy(logger, 'error');
 
   const result = await target().patentByText({ params: { name: 'patent' } }, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });

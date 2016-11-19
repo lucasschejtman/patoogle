@@ -2,6 +2,7 @@ import config from '../../config';
 import Session from './session.model';
 import User from '../user/user.model';
 import Roles from '../../enums/roles.enum';
+import * as logger from '../../core/logger';
 import { createSalt, createHash, compareHash } from '../../core/crypt';
 
 import Boom from 'boom';
@@ -15,6 +16,7 @@ export const register = async (request, reply) => {
     const newUser = await User.forge({ name: request.payload.name, password: hash, role: Roles.FREE }).save(null, { method: 'insert' });
     return reply('user created').code(201);
   } catch(err) {
+    logger.error(err);
     return reply(Boom.badRequest());
   }
 };
@@ -34,7 +36,7 @@ export const login = async (request, reply) => {
 
     return reply(Boom.unauthorized('incorrect username or password'));
   } catch(err) {
-    console.log(err);
+    logger.error(err);
     return reply(Boom.badRequest());
   }
 };

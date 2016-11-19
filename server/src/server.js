@@ -4,6 +4,7 @@ import validateSession from './modules/auth/session.validation';
 
 import { Server } from 'hapi';
 
+/* istanbul ignore next */
 const server = new Server({
   debug: config.get('app.env') !== "dev" ? false : { log: ['error'], request: ['received'] }
 });

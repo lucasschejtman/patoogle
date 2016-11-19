@@ -1,3 +1,4 @@
+import * as logger from '../../../src/core/logger';
 import User from '../../../src/modules/user/user.model';
 import Session from '../../../src/modules/auth/session.model';
 
@@ -25,7 +26,8 @@ const reply = (resp) => ({
 
 const target = () => proxyquire('../../../src/modules/auth/auth.controller', {
   './session.model': Session,
-  '../user/user.model': User
+  '../user/user.model': User,
+  '../../core/logger': logger
 });
 
 let sandbox;
@@ -50,9 +52,11 @@ test.serial('register returns code 201 for created user', async t => {
 test.serial('register returns badRequest when errors', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(User.prototype, 'save').throws();
+  sandbox.spy(logger, 'error');
 
   const result = await target().register({ payload: { name: "name" } }, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -86,8 +90,10 @@ test.serial('login returns badRequest when error', async t => {
   const user = { id: '1', password: "$2a$12$dtsMu8DrJY4KWD8.EZOwIeR4WvHGRkIW4lN5enhYm5F8plqK09/em", get(prop) { return this[prop]; } };
   sandbox.stub(User.prototype, 'fetch').throws();
   sandbox.stub(Session.prototype, 'save').returns({});
+  sandbox.spy(logger, 'error');
 
   const result = await target().login(request, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
