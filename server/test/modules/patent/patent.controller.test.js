@@ -1,3 +1,4 @@
+import * as logger from '../../../src/core/logger';
 import Patent from '../../../src/modules/patent/patent.model';
 import Company from '../../../src/modules/company/company.model';
 
@@ -25,6 +26,7 @@ const reply = (resp) => ({
 
 const target = () => proxyquire('../../../src/modules/patent/patent.controller', {
   './patent.model': Patent,
+  '../../core/logger': logger,
   '../company/company.model': Company
 });
 
@@ -51,11 +53,13 @@ test.serial('get returns patent on success', async t => {
 
 test.serial('get returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Patent.prototype, 'fetch').throws();
   const request = { params: { id: "6ff08836-0c5f-471c-9656-440c98c8b1b7" } };
 
   const result = await target().get(request, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -71,10 +75,13 @@ test.serial('create returns patent id on success', async t => {
 
 test.serial('create returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Patent.prototype, 'save').throws();
 
   const result = await target().create({}, reply);
 
+
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -95,10 +102,13 @@ test.serial('match returns matched patent on success', async t => {
 
 test.serial('match returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Company.prototype, 'fetch').throws();
 
   const result = await target().match({ payload: { name: 'name' } }, reply);
 
+
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -114,10 +124,13 @@ test.serial('update returns updated patent on success', async t => {
 
 test.serial('match returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Patent.prototype, 'save').throws();
 
   const result = await target().update({ payload: { } }, reply);
 
+
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -133,9 +146,12 @@ test.serial('destroy returns empty object on success', async t => {
 
 test.serial('destroy returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Patent.prototype, 'destroy').throws();
 
   const result = await target().destroy({ payload: { } }, reply);
 
+
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
