@@ -1,3 +1,4 @@
+import * as logger from '../../../src/core/logger';
 import Company from '../../../src/modules/company/company.model';
 
 import test from 'ava';
@@ -23,7 +24,8 @@ const reply = (resp) => ({
 });
 
 const target = () => proxyquire('../../../src/modules/company/company.controller', {
-  './company.model': Company
+  './company.model': Company,
+  '../../core/logger': logger
 });
 
 let sandbox;
@@ -50,10 +52,13 @@ test.serial('get returns company on success', async t => {
 test.serial('get returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(Company.prototype, 'fetch').throws();
+  sandbox.spy(logger, 'error');
+
   const request = { params: { name: "name" } };
 
   const result = await target().get(request, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -70,9 +75,11 @@ test.serial('create returns company id on success', async t => {
 test.serial('create returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(Company.prototype, 'save').throws();
+  sandbox.spy(logger, 'error');
 
   const result = await target().create({}, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -89,9 +96,11 @@ test.serial('update returns updated company on success', async t => {
 test.serial('update returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(Company.prototype, 'save').throws();
+  sandbox.spy(logger, 'error');
 
   const result = await target().update({}, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
 
@@ -108,8 +117,10 @@ test.serial('destroy returns empty object on success', async t => {
 test.serial('destroy returns badRequest on error', async t => {
   const expected = Boom.badRequest();
   sandbox.stub(Company.prototype, 'destroy').throws();
+  sandbox.spy(logger, 'error');
 
   const result = await target().destroy({ payload: { } }, reply);
 
+  t.is(logger.error.callCount, 1);
   t.deepEqual(result._response, expected);
 });
