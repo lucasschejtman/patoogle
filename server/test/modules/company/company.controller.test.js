@@ -51,6 +51,7 @@ test.serial('get returns company on success', async t => {
 
 test.serial('get returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Company.prototype, 'fetch').throws();
   sandbox.spy(logger, 'error');
 
@@ -74,6 +75,7 @@ test.serial('create returns company id on success', async t => {
 
 test.serial('create returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Company.prototype, 'save').throws();
   sandbox.spy(logger, 'error');
 
@@ -95,6 +97,7 @@ test.serial('update returns updated company on success', async t => {
 
 test.serial('update returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Company.prototype, 'save').throws();
   sandbox.spy(logger, 'error');
 
@@ -116,6 +119,7 @@ test.serial('destroy returns empty object on success', async t => {
 
 test.serial('destroy returns badRequest on error', async t => {
   const expected = Boom.badRequest();
+  sandbox.spy(logger, 'error');
   sandbox.stub(Company.prototype, 'destroy').throws();
   sandbox.spy(logger, 'error');
 
