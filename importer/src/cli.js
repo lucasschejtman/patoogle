@@ -1,14 +1,7 @@
 import pkg from '../package';
+import { doImport } from './importer';
 
 import program from 'commander';
-
-//TODO: Move elsewhere
-const doImport = ({ year, month, day, dry }) => {
-  console.log(year);
-  console.log(month);
-  console.log(day);
-  console.log(dry);
-};
 
 program
   .version(pkg.version)
