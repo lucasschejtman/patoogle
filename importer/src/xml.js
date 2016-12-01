@@ -1,17 +1,22 @@
-import expat from 'node-expat';
+import fs from 'fs';
+import path from 'path';
+import xmlStream from 'xml-stream';
 
-const parser = new expat.Parser('UTF-8')
+const elName = 'us-bibliographic-data-grant';
 
-parser.on('startElement', function (name, attrs) {
-  console.log(name, attrs);
-});
+const pauser = xml => {
+  xml.pause();
+  setTimeout(() => xml.resume(), 1000);
+};
 
-parser.on('text', function (text) {
-  console.log(parser);
-});
+export const run = () => {
+  const stream = fs.createReadStream(path.join(__dirname, 'ipg160105.xml'));
+  const xml = new xmlStream(stream);
 
-parser.on('error', function (error) {
-  console.error(error);
-});
-
-export const run = () => parser.write('<html><head><title id="1">Hello World</title></head><body><p>Foobar</p></body></html>');
+  xml.collect(elName);
+  xml.on(`endElement: ${elName}`, (element) => {
+      console.log(element);
+      pauser(xml);
+  });
+  xml.on('error', function(){});
+};
