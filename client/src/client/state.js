@@ -10,6 +10,9 @@ let defaultState =  observable({
     },
     browse: {
         data : ''
+    },
+    search: {
+        value: 'Wot'
     }
 })
 
