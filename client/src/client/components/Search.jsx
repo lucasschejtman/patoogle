@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -8,18 +9,11 @@ export default class Search extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = { textFieldValue: '' };
+        this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     }
 
-    searchOnMouseDown() {
-        console.log(this.state);
-    }
-
-    _handleTextFieldChange(e) {
-        console.log(e.target.value)
-        this.setState({
-            textFieldValue: e.target.value
-        });
+    handleTextFieldChange(event) {
+        this.props.searchPatents(event.target.name, event.target.value);
     }
 
     render() {
@@ -27,9 +21,12 @@ export default class Search extends React.Component {
             margin: 12,
         };
 
-        return <div>
-            <TextField hintText="Find Patents" onChange={this._handleTextFieldChange} />
-            <RaisedButton label="Search" primary={true} style={style} onMouseDown={this.searchOnMouseDown} />
-        </div>
+        return (
+            <div>
+                <TextField name="value" hintText="Find Patents" value={this.props.value} onChange={this.handleTextFieldChange} />
+                <RaisedButton label="Search" primary={true} style={style} onMouseDown={this.props.searchPatents()} />
+            </div>
+        )
     }
 }
+
