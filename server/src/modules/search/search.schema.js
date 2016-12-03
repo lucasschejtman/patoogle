@@ -1,9 +1,11 @@
-import Joi from 'joi';
+import { object, string } from 'joi';
+
+const STR = string().required();
 
 const companyByName = {
-  request: {
-    name: Joi.string().required()
-  },
+  request: object({
+    name: STR
+  }),
   response: {
     valid: {
       // TBD
@@ -12,9 +14,9 @@ const companyByName = {
 };
 
 const patentByText = {
-  request: {
-    text: Joi.string().required()
-  },
+  request: object({
+    text: STR
+  }),
   response: {
     valid: {
       // TBD

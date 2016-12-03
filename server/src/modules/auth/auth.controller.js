@@ -1,6 +1,8 @@
+import config from '../../config';
 import Session from './session.model';
 import User from '../user/user.model';
 import Roles from '../../enums/roles.enum';
+import * as logger from '../../core/logger';
 import { createSalt, createHash, compareHash } from '../../core/crypt';
 
 import Boom from 'boom';
@@ -14,6 +16,7 @@ export const register = async (request, reply) => {
     const newUser = await User.forge({ name: request.payload.name, password: hash, role: Roles.FREE }).save(null, { method: 'insert' });
     return reply('user created').code(201);
   } catch(err) {
+    logger.error(err);
     return reply(Boom.badRequest());
   }
 };
@@ -24,19 +27,16 @@ export const login = async (request, reply) => {
     const passwordMatch = await compareHash(request.payload.password, user.get('password'));
     if(passwordMatch) {
       const sid = aguid();
-      const exp = Math.floor(new Date().getTime() / 1000) + 7 * 24 * 60 * 60;
+      const exp = Math.floor(new Date().getTime() / 1000) + (config.get('app.jwt.exp') / 1000);
       const session = await Session.forge({ session_id: sid, user_id: user.id, end_ts: exp }).save(null, { method: 'insert' });
-      //TODO: move exp and jwt secret to conf
-      const token = JWT.sign({
-        sid,
-        exp
-      }, '123456');
+      const token = JWT.sign({ sid, exp }, config.get('app.jwt.key'));
 
       return reply({ token: token }).code(202);
     }
 
     return reply(Boom.unauthorized('incorrect username or password'));
   } catch(err) {
-    return reply(Boom.badImplementation(err));
+    logger.error(err);
+    return reply(Boom.badRequest());
   }
 };

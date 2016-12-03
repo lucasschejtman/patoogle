@@ -1,5 +1,6 @@
 import db from '../../core/db';
 
+/* istanbul ignore next */
 const Session = db.model('Session', {
   tableName: 'sessions',
   user() {

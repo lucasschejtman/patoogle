@@ -1,0 +1,17 @@
+language: node_js
+
+node_js:
+  - "5"
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.8
+    - g++-4.8
+
+env:
+  - PROJECT_DIR=server CXX=g++-4.8
+
+script: cd $PROJECT_DIR && npm install && npm test && npm run coverage

@@ -1,18 +1,16 @@
 import { object, string, date } from 'joi';
 
-const STR = string().required();
-const NAME = STR.min(3).max(15);
 const DATE = date().iso().required();
 const GUID = string().uuid({ version: ['uuidv4'] }).required();
 
 const getSchema = {
   request: object({
-    name: STR
+    id: GUID
   }),
   response: {
     valid: object({
       id: GUID,
-      name: NAME,
+      matched_company_id: GUID.allow(null),
       created_at: DATE,
       updated_at: DATE
     })
@@ -20,9 +18,9 @@ const getSchema = {
 };
 
 const createSchema = {
-  request: object({
-    name: NAME
-  }),
+  request: {
+
+  },
   response: {
     valid: object({
       id: GUID
@@ -30,15 +28,31 @@ const createSchema = {
   }
 };
 
+const matchSchema = {
+  request: {
+    params: object({
+      id: GUID
+    }),
+    payload: object({
+      name: string().min(3).max(15).required()
+    })
+  },
+  response: {
+    valid: object({
+      id: GUID,
+      matched_company_id: GUID,
+      updated_at: DATE
+    })
+  }
+}
+
 const updateSchema = {
   request: object({
-    id: GUID,
-    name: NAME
+    id: GUID
   }),
   response: {
     valid: object({
       id: GUID,
-      name: NAME,
       updated_at: DATE
     })
   }
@@ -53,11 +67,12 @@ const destroySchema = {
 
     }
   }
-}
+};
 
 export default {
   get: getSchema,
   create: createSchema,
+  match: matchSchema,
   update: updateSchema,
   destroy: destroySchema
 };
