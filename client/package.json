@@ -6,8 +6,7 @@
   "author": "Sam Megidov <sam@megidov.com>",
   "license": "MIT",
   "private": true,
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "babel-core": "^6.16.0",
     "babel-loader": "^6.2.5",
@@ -33,6 +32,8 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
+    "material-ui": "^0.16.1",
+    "react-tap-event-plugin": "^1.0.0",
     "webpack-dev-server": "^1.16.1"
   }
 }
