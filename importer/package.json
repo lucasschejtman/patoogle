@@ -73,6 +73,8 @@
     "instrument": false
   },
   "dependencies": {
+    "JSONStream": "^1.2.1",
+    "big-xml": "^1.0.0",
     "bookshelf": "^0.10.2",
     "commander": "^2.9.0",
     "convict": "^1.5.0",

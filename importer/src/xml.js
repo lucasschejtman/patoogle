@@ -1,10 +1,16 @@
 import fs from 'fs';
 import path from 'path';
-import libxml from 'libxmljs';
 
 export const run = () => {
-  const buffer = fs.readFile(path.join(__dirname, 'one_patent.xml'),{ encoding: 'utf8' }, (err, data) => {
-    const xmlDoc = libxml.parseXmlString(data);
-    console.log(xmlDoc.root());
+  var bigXml = require('big-xml');
+
+  var reader = bigXml.createReader(path.join(__dirname, 'ipg160105.xml'), /^(us-patent-grant)$/, { gzip: false });
+
+  reader.on('record', function(record) {
+    console.log(record);
+  });
+
+  reader.on('error', function(err) {
+    console.log(err);
   });
 };
