@@ -80,7 +80,7 @@ const config = convict({
       exp: {
         doc: "The JWT expiration",
         format: "duration",
-        "default": "6 months",
+        default: "6 months",
         env: "APP_JWT_EXP"
       }
     }
