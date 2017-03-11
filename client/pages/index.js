@@ -1,3 +1,5 @@
+import Layout from '../components/layout';
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -6,4 +8,10 @@ const Title = styled.h1`
   font-size: 50px;
 `;
 
-export default () => <Title>My pagesse</Title>;
+const Page = () => (
+  <Layout>
+    <Title>My page</Title>
+  </Layout>
+);
+
+export default Page;

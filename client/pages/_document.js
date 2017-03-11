@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Main, NextScript } from 'next/document';
 import styleSheet from 'styled-components/lib/models/StyleSheet';
 
 export default class MyDocument extends Document {
@@ -12,15 +12,10 @@ export default class MyDocument extends Document {
 
   render () {
     return (
-      <html>
-        <Head>
-          <title>My page</title>
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
+      <div>
+        <Main />
+        <NextScript />
+      </div>
     );
   };
 };

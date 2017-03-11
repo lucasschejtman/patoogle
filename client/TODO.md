@@ -7,3 +7,4 @@
 - [ ] base pages (search, results, info)
 - [ ] flow
 - [ ] linter
+- [ ] debug
