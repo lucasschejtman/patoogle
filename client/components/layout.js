@@ -2,6 +2,7 @@ import Header from './base/header';
 import Footer from './base/footer';
 
 import App from 'grommet/components/App';
+import Box from 'grommet/components/Box';
 import Head from 'next/head';
 
 const layout = ({ children, title = 'Patntr | Home' }) => (
@@ -13,11 +14,15 @@ const layout = ({ children, title = 'Patntr | Home' }) => (
           <link href="/static/grommet.min.css" rel="stylesheet" type="text/css" />
         </Head>
 
-        <Header />
+        <Box full={true}>
+            <Header />
 
-        { children }
+            <Box flex={true}>
+                { children }
+            </Box>
 
-        <Footer />
+            <Footer />
+        </Box>
     </App>
 );
 
