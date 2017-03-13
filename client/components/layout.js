@@ -5,14 +5,17 @@ import App from 'grommet/components/App';
 import Box from 'grommet/components/Box';
 import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
+import Menu from 'grommet/components/Menu';
+import Actions from 'grommet/components/icons/base/Actions';
+import Anchor from 'grommet/components/Anchor';
 
-export default ({ children, title = 'This is the default title' }) => (
+export default ({ children, title = 'Patntr | Home' }) => (
     <div>
         <Head>
           <title>{ title }</title>
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-          <link href="//cdnjs.cloudflare.com/ajax/libs/grommet/1.0.1/grommet.min.css" rel="stylesheet" type="text/css" />
+          <link href="/static/grommet.min.css" rel="stylesheet" type="text/css" />
         </Head>
 
         <App>
@@ -21,12 +24,25 @@ export default ({ children, title = 'This is the default title' }) => (
             float={false}
             fixed={true}>
             <Title>
-              Sample Title
+              Patntr
             </Title>
             <Box flex={true}
-              justify='end'
-              direction='row'
-              responsive={false}>
+                justify='end'
+                direction='row'
+                responsive={false}>
+                <Menu icon={<Actions />}
+                  dropAlign={{"right": "right"}}>
+                  <Anchor href='#'
+                    className='active'>
+                    First
+                  </Anchor>
+                  <Anchor href='#'>
+                    Second
+                  </Anchor>
+                  <Anchor href='#'>
+                    Third
+                  </Anchor>
+                </Menu>
             </Box>
           </Header>
           { children }
