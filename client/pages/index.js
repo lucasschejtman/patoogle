@@ -1,3 +1,4 @@
+import Search from '../components/search';
 import Layout from '../components/layout';
 
 import React from 'react';
@@ -10,7 +11,7 @@ const Title = styled.h1`
 
 const Page = () => (
   <Layout>
-    <Title>My page</Title>
+    <Search />
   </Layout>
 );
 
